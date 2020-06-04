@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "app.com.mobileassignment"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
+
+
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.1.0"
+    testCompile "org.robolectric:robolectric:3.1.2"
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'com.google.guava:guava:29.0-android'
+    androidTestImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.2'
+}
