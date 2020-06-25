@@ -8,7 +8,6 @@ import androidx.test.espresso.ViewInteraction;
 
 import com.azimolabs.conditionwatcher.ConditionWatcher;
 import com.azimolabs.conditionwatcher.Instruction;
-import com.fasterxml.jackson.databind.util.ViewMatcher;
 
 
 public class AziWait {
