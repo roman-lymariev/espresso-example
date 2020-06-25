@@ -7,6 +7,10 @@ import androidx.test.espresso.AmbiguousViewMatcherException;
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.rule.ActivityTestRule;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +18,7 @@ import app.com.mobileassignment.R;
 import app.com.mobileassignment.model.City;
 import utils.AziWait;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -24,7 +29,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static utils.AziWait.waitUntilGone;
 import static utils.AziWait.waitUntilVisible;
 
@@ -85,7 +89,23 @@ public class MainPage {
     }
 
     public void tapCityToOpen(String city) {
-        onView(withText(city)).perform(click());
+        onData(withCityNameCountry(city))
+                .inAdapterView(withId(R.id.citiesList))
+                .atPosition(0)
+                .perform(click());
+    }
+
+    public static Matcher withCityNameCountry(final String cityName){
+        return new TypeSafeMatcher<City>(){
+            @Override
+            public boolean matchesSafely(City city) {
+                return cityName.compareTo(city.getName()+", "+city.getCountry()) == 0;
+            }
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Matches the cities contained in the list by name");
+            }
+        };
     }
 
     public MainPage scrollListDown() {
